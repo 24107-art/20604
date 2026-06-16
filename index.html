@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI TTS 음성 변환기 PRO</title>
+  <title>AI TTS 음성 변환기 PRO (멤버십)</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -19,186 +19,130 @@
     * { box-sizing: border-box; font-family: 'Noto Sans KR', sans-serif; }
 
     body {
-      margin: 0;
-      min-height: 100vh;
-      background-color: var(--bg-color);
+      margin: 0; min-height: 100vh; background-color: var(--bg-color);
       background-image: 
         radial-gradient(at 0% 0%, rgba(129, 140, 248, 0.15) 0px, transparent 50%),
         radial-gradient(at 100% 100%, rgba(192, 132, 252, 0.15) 0px, transparent 50%);
-      color: var(--text-main);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
+      color: var(--text-main); display: flex; justify-content: center; align-items: center; padding: 20px;
     }
 
     .container {
-      width: 100%;
-      max-width: 700px;
-      background: var(--card-bg);
-      border-radius: 28px;
-      padding: 35px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--border-color);
+      width: 100%; max-width: 700px; background: var(--card-bg); border-radius: 28px; padding: 35px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); backdrop-filter: blur(16px); border: 1px solid var(--border-color);
     }
 
-    h1 {
-      margin: 0 0 8px;
-      text-align: center;
-      font-size: 28px;
-      font-weight: 700;
-      background: var(--accent-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+    h1 { margin: 0 0 8px; text-align: center; font-size: 28px; font-weight: 700; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .subtitle { text-align: center; color: var(--text-muted); margin-bottom: 30px; font-size: 14px; }
 
-    .subtitle {
-      text-align: center;
-      color: var(--text-muted);
-      margin-bottom: 30px;
-      font-size: 14px;
-    }
+    /* 로그인 바 설정 */
+    .auth-bar { display: flex; justify-content: space-between; align-items: center; background: rgba(15, 23, 42, 0.5); padding: 12px 20px; border-radius: 16px; margin-bottom: 25px; border: 1px solid var(--border-color); }
+    .user-info { font-size: 14px; color: #a5b4fc; font-weight: 500; }
+    
+    .btn { border: none; border-radius: 12px; padding: 0 20px; height: 40px; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+    .login-btn { background: #white; color: #1e293b; background: #ffffff; box-shadow: 0 4px 12px rgba(255,255,255,0.1); }
+    .logout-btn { background: #ef4444; color: white; }
 
-    .info {
-      padding: 16px;
-      margin-bottom: 25px;
-      border-radius: 16px;
-      background: rgba(245, 158, 11, 0.1);
-      border: 1px solid rgba(245, 158, 11, 0.2);
-      color: #fcd34d;
-      font-size: 13.5px;
-      line-height: 1.6;
-    }
+    .main-box { transition: all 0.3s ease; }
+    .blur-mode { filter: blur(5px); pointer-events: none; opacity: 0.3; }
 
-    .option-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
+    .option-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+    .input-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 15px; }
+    .input-group label { font-size: 13px; color: var(--text-muted); }
 
-    .input-group {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .input-group label {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    select, input, textarea {
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid var(--border-color);
-      color: white;
-      border-radius: 12px;
-      outline: none;
-      transition: all 0.2s;
-    }
-
+    select, input, textarea { background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); color: white; border-radius: 12px; outline: none; }
     select, input { height: 46px; padding: 0 12px; font-size: 14px; }
-    textarea { width: 100%; min-height: 140px; padding: 16px; font-size: 15px; line-height: 1.6; resize: vertical; }
-    select:focus, input:focus, textarea:focus { border-color: var(--accent-color); }
+    textarea { width: 100%; min-height: 120px; padding: 16px; font-size: 15px; line-height: 1.6; resize: vertical; }
 
     .counter-row { display: flex; justify-content: flex-end; font-size: 12px; color: var(--text-muted); margin-top: 6px; }
     .button-row { display: flex; gap: 12px; justify-content: flex-end; margin-top: 20px; }
 
-    button, .download-link {
-      border: none; border-radius: 12px; padding: 0 24px; height: 48px;
-      font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.2s;
-      display: inline-flex; align-items: center; justify-content: center; text-decoration: none;
-    }
-
-    .clear-btn { background: #334155; color: #94a3b8; }
-    .make-btn { background: var(--accent-gradient); color: #0f172a; box-shadow: 0 4px 14px rgba(129, 140, 248, 0.4); }
+    .clear-btn { background: #334155; color: #94a3b8; height: 48px; }
+    .make-btn { background: var(--accent-gradient); color: #0f172a; height: 48px; font-size: 15px; box-shadow: 0 4px 14px rgba(129, 140, 248, 0.4); }
     .make-btn:disabled { background: #1e293b; color: #475569; cursor: not-allowed; box-shadow: none; }
-    .download-link { background: linear-gradient(135deg, #a855f7, #ec4899); color: white; }
+    .download-link { background: linear-gradient(135deg, #a855f7, #ec4899); color: white; text-decoration: none; border-radius: 12px; padding: 12px 24px; font-weight: bold; font-size: 14px; }
 
     .status-container { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 20px; }
     .spinner { width: 24px; height: 24px; border: 3px solid rgba(255, 255, 255, 0.1); border-top-color: var(--accent-color); border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 8px; }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .status-text { font-size: 14px; color: var(--accent-color); text-align: center; }
+    .status-text { font-size: 14px; color: var(--accent-color); }
 
     .result-box { margin-top: 25px; padding: 20px; border-radius: 16px; background: rgba(15, 23, 42, 0.4); border: 1px solid var(--border-color); }
     audio { width: 100%; margin-top: 10px; filter: invert(0.9) hue-rotate(180deg); }
-    .fb-url { margin-top: 10px; font-size: 12px; color: #34d399; word-break: break-all; text-align: center; }
-
+    
     .hidden { display: none !important; }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>🔊 AI TTS 음성 변환기 PRO</h1>
-    <div class="subtitle">GitHub Pages + Firebase 클라우드 인프라 연동형</div>
+    <div class="subtitle">보안 로그인 및 전용 히스토리 보관 시스템</div>
 
-    <div class="info">
-      <strong>⚡ 김민재님 전용 시스템 아키텍처</strong><br />
-      텍스트 입력 ➔ Google Apps Script 웹앱 통신 ➔ OpenAI TTS 변환 ➔ ggggg 프로젝트 파이어베이스 저장소 백업
+    <div class="auth-bar">
+      <div id="userDisplay" class="user-info">🔒 서비스를 이용하려면 로그인이 필요합니다.</div>
+      <button id="loginBtn" class="btn login-btn">🌐 구글 로그인</button>
+      <button id="logoutBtn" class="btn logout-btn hidden">로그아웃</button>
     </div>
 
-    <div class="option-grid">
-      <div class="input-group">
-        <label for="modelSelect">AI 엔진 모델</label>
-        <select id="modelSelect">
-          <option value="tts-1">tts-1 (속도 최적화)</option>
-          <option value="tts-1-hd">tts-1-hd (음질 최적화)</option>
-        </select>
+    <div id="mainBox" class="main-box blur-mode">
+      <div class="option-grid">
+        <div class="input-group">
+          <label for="modelSelect">AI 엔진 모델</label>
+          <select id="modelSelect">
+            <option value="tts-1">tts-1 (속도형)</option>
+            <option value="tts-1-hd">tts-1-hd (고음질)</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label for="voiceSelect">보이스 선택</label>
+          <select id="voiceSelect">
+            <option value="alloy">Alloy (중성)</option>
+            <option value="echo">Echo (남성)</option>
+            <option value="nova">Nova (여성)</option>
+            <option value="shimmer">Shimmer (여성)</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label for="speedInput">재생 속도</label>
+          <input id="speedInput" type="number" min="0.25" max="4.0" step="0.05" value="1.0" />
+        </div>
       </div>
+
       <div class="input-group">
-        <label for="voiceSelect">보이스 선택</label>
-        <select id="voiceSelect">
-          <option value="alloy">Alloy (중성)</option>
-          <option value="echo">Echo (남성)</option>
-          <option value="nova">Nova (여성)</option>
-          <option value="shimmer">Shimmer (여성)</option>
-        </select>
+        <label for="textInput">변환할 텍스트</label>
+        <textarea id="textInput" placeholder="이곳에 문장을 입력하세요..."></textarea>
+        <div class="counter-row"><span id="charCount">0</span> / 4096자</div>
       </div>
-      <div class="input-group">
-        <label for="speedInput">재생 속도</label>
-        <input id="speedInput" type="number" min="0.25" max="4.0" step="0.05" value="1.0" />
-      </div>
-    </div>
 
-    <div class="input-group">
-      <label for="textInput">변환할 텍스트</label>
-      <textarea id="textInput" placeholder="이곳에 문장을 입력하고 버튼을 누르거나 Ctrl + Enter를 누르세요."></textarea>
-      <div class="counter-row"><span id="charCount">0</span> / 4096자</div>
-    </div>
-
-    <div class="button-row">
-      <button class="clear-btn" id="clearBtn">초기화</button>
-      <button class="make-btn" id="makeBtn">음성 생성 및 클라우드 저장</button>
-    </div>
-
-    <div id="statusContainer" class="status-container hidden">
-      <div class="spinner"></div>
-      <div id="statusText" class="status-text">대기 중...</div>
-    </div>
-
-    <div id="resultBox" class="result-box hidden">
-      <label style="font-size: 13px; color: var(--text-muted);">🎵 생성된 오디오 플레이어</label>
-      <audio id="audioPlayer" controls></audio>
-      <div id="firebaseUrl" class="fb-url"></div>
       <div class="button-row">
-        <a id="downloadLink" class="download-link" href="#" download="tts-audio.mp3">📥 로컬 기기에 다운로드</a>
+        <button class="btn clear-btn" id="clearBtn">초기화</button>
+        <button class="btn make-btn" id="makeBtn">음성 생성 및 클라우드 저장</button>
+      </div>
+
+      <div id="statusContainer" class="status-container hidden">
+        <div class="spinner"></div>
+        <div id="statusText" class="status-text">대기 중...</div>
+      </div>
+
+      <div id="resultBox" class="result-box hidden">
+        <label style="font-size: 13px; color: var(--text-muted);">🎵 나의 생성된 오디오</label>
+        <audio id="audioPlayer" controls></audio>
+        <div class="button-row" style="margin-top: 15px;">
+          <a id="downloadLink" class="download-link" href="#" download="tts-audio.mp3">📥 컴퓨터에 다운로드</a>
+        </div>
       </div>
     </div>
   </div>
 
   <script type="module">
-    // Firebase 최신버전 모듈 백엔드 임포트
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
     import { getStorage, ref as sRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
     import { getDatabase, ref as dRef, push } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-    // 💥 김민재님이 주신 ggggg-67882 프로젝트 정보 주입 완료
     const firebaseConfig = {
       apiKey: "AIzaSyCsSF_ZoAZsvzCRzFII9e2oYUw-P27o7RQ",
       authDomain: "ggggg-67882.firebaseapp.com",
-      databaseURL: "https://ggggg-67882-default-rtdb.firebaseio.com", // 수동 보정 완료
+      databaseURL: "https://ggggg-67882-default-rtdb.firebaseio.com",
       projectId: "ggggg-67882",
       storageBucket: "ggggg-67882.firebasestorage.app",
       messagingSenderId: "96840197601",
@@ -206,12 +150,19 @@
     };
 
     const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
     const storage = getStorage(app);
     const database = getDatabase(app);
+    const provider = new GoogleAuthProvider();
 
-    // 구글 앱스 스크립트 연결용 고유 매핑 주소
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxKTiX-ITgjNUoJ21K5jJPjwJS1yMYFMlW2ecEC-1vjrZrYyKQ1slY29u3Xirsw4jthdA/exec';
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKTiX-ITgjNUoJ21K5jJPjwJS1yMYFMlW2ecEC-1vjrZrYyKQ1slY29u3Xirsw4jthdA/exec';
+    let currentUser = null;
 
+    // DOM 바인딩
+    const loginBtn = document.getElementById('loginBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const userDisplay = document.getElementById('userDisplay');
+    const mainBox = document.getElementById('mainBox');
     const textInput = document.getElementById('textInput');
     const charCount = document.getElementById('charCount');
     const modelSelect = document.getElementById('modelSelect');
@@ -224,19 +175,38 @@
     const resultBox = document.getElementById('resultBox');
     const audioPlayer = document.getElementById('audioPlayer');
     const downloadLink = document.getElementById('downloadLink');
-    const firebaseUrlDiv = document.getElementById('firebaseUrl');
 
-    textInput.addEventListener('input', () => { charCount.textContent = textInput.value.length; });
-    makeBtn.addEventListener('click', makeSpeech);
+    // 인증 유저 모니터링 체커
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        currentUser = user;
+        userDisplay.textContent = `🟢 회원: ${user.displayName}님 환영합니다!`;
+        loginBtn.classList.add('hidden');
+        logoutBtn.classList.remove('hidden');
+        mainBox.classList.remove('blur-mode');
+      } else {
+        currentUser = null;
+        userDisplay.textContent = `🔒 서비스를 이용하려면 로그인이 필요합니다.`;
+        loginBtn.classList.remove('hidden');
+        logoutBtn.classList.add('hidden');
+        mainBox.classList.add('blur-mode');
+        clearPage();
+      }
+    });
+
+    loginBtn.addEventListener('click', () => signInWithPopup(auth, provider).catch(err => alert("로그인 실패: " + err.message)));
+    logoutBtn.addEventListener('click', () => signOut(auth));
+    textInput.addEventListener('input', () => charCount.textContent = textInput.value.length);
     clearBtn.addEventListener('click', clearPage);
-    textInput.addEventListener('keydown', e => { if (e.key === 'Enter' && e.ctrlKey) { e.preventDefault(); makeSpeech(); } });
+    makeBtn.addEventListener('click', makeSpeech);
 
     async function makeSpeech() {
+      if (!currentUser) return alert('로그인이 필요한 서비스입니다.');
       const text = textInput.value.trim();
       if (!text) return alert('텍스트를 입력해 주세요.');
 
       try {
-        setLoading(true, '🚀 1단계: 구글 API 허브를 경유해 음성을 합성하는 중...');
+        setLoading(true, '🚀 1단계: AI 서버에서 음성을 합성하고 있습니다...');
         resultBox.classList.add('hidden');
 
         const response = await fetch(APPS_SCRIPT_URL, {
@@ -248,6 +218,69 @@
         const data = await response.json();
         if (data.error) throw new Error(data.error);
 
-        statusText.textContent = '📦 2단계: 오디오 캡슐화 인코딩을 가동하는 중...';
+        statusText.textContent = '📦 2단계: 오디오 파일을 생성하는 중...';
         const fileName = `tts-${Date.now()}.mp3`;
-        const audioBlob = base64ToBlob(data
+        const audioBlob = base64ToBlob(data.audioBase64, 'audio/mpeg');
+        const audioUrl = URL.createObjectURL(audioBlob);
+
+        // 개인 폴더 경로 설계: user_audio/본인UID/파일명
+        statusText.textContent = '☁️ 3단계: 내 개인 클라우드 스토리지 공간에 저장 중...';
+        const storageReference = sRef(storage, `user_audio/${currentUser.uid}/${fileName}`);
+        await uploadBytes(storageReference, audioBlob);
+        const firebaseDownloadUrl = await getDownloadURL(storageReference);
+
+        statusText.textContent = '💾 4단계: 실시간 변환 일지에 기록 동기화 중...';
+        await push(dRef(database, `user_history/${currentUser.uid}`), {
+          userEmail: currentUser.email,
+          text: text,
+          model: modelSelect.value,
+          voice: voiceSelect.value,
+          fileUrl: firebaseDownloadUrl,
+          createdAt: new Date().toISOString()
+        });
+
+        audioPlayer.src = audioUrl;
+        downloadLink.href = audioUrl;
+        downloadLink.download = fileName;
+        
+        resultBox.classList.remove('hidden');
+        statusContainer.classList.add('hidden');
+      } catch (error) {
+        console.error(error);
+        statusContainer.classList.add('hidden');
+        alert('에러 발생 (파이어베이스 인증 권한을 체크하세요): ' + error.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    function base64ToBlob(base64, mimeType) {
+      const byteCharacters = atob(base64);
+      const byteArrays = [];
+      for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+        const slice = byteCharacters.slice(offset, offset + 512);
+        const byteNumbers = new Array(slice.length);
+        for (let i = 0; i < slice.length; i++) byteNumbers[i] = slice.charCodeAt(i);
+        byteArrays.push(new Uint8Array(byteNumbers));
+      }
+      return new Blob(byteArrays, { type: mimeType });
+    }
+
+    function setLoading(isLoading, text = '') {
+      makeBtn.disabled = isLoading;
+      if (isLoading) {
+        statusContainer.classList.remove('hidden');
+        statusText.textContent = text;
+      }
+    }
+
+    function clearPage() {
+      textInput.value = '';
+      charCount.textContent = '0';
+      resultBox.classList.add('hidden');
+      statusContainer.classList.add('hidden');
+      audioPlayer.removeAttribute('src');
+    }
+  </script>
+</body>
+</html>
